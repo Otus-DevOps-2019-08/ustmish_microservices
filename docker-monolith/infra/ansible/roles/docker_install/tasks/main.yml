@@ -1,0 +1,43 @@
+---
+- name: Install a list of packages
+  apt:
+    force_apt_get: yes
+    update_cache: yes
+    pkg:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - software-properties-common
+
+- name: Add Docker’s official GPG key
+  shell: 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -'
+
+- name: Download pip
+  shell: 'curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py'
+
+- name: install pip
+  shell: 'python get-pip.py' 
+
+- pip:
+    name: docker
+
+- name: Use the following command to set up the stable repository. To add the nightly or test repository, add the word nightly or test (or both) after the word stable in the commands below. Learn about nightly and test channels.
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+    state: present
+- name: install docker
+  apt:
+    force_apt_get: yes
+    update_cache: yes
+    pkg:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+- name: Start container
+  docker_container:
+    name: reddit
+    image: ourman/otus-reddit:1.0
+    state: started
+    ports:
+    - "9292:9292"

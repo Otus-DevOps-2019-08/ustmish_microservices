@@ -1,0 +1,14 @@
+REPOSITORY                            TAG                 IMAGE ID            CREATED              SIZE
+vyacheslav_mishukov/ubuntu-tmp-file   latest              77a1379620e0        51 seconds ago       123MB
+<none>                                <none>              495c06715ef1        About a minute ago   123MB
+<none>                                <none>              3940726f7472        2 minutes ago        123MB
+ubuntu                                16.04               5f2bf26e3524        12 days ago          123MB
+test/cowsay-dockerfile                latest              91ce7771b13d        5 weeks ago          180MB
+test/cowsayimage                      latest              2673bf7a1e77        5 weeks ago          180MB
+debian                                latest              c2c03a296d23        2 months ago         114MB
+debian                                wheezy              10fcec6d95c4        8 months ago         88.3MB
+hello-world                           latest              fce289e99eb9        10 months ago        1.84kB
+
+
+образ от контейнера отличается тем что в контейнере есть дополнительный слой с правами для записи (r+w слой)
+
