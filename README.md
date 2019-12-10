@@ -27,3 +27,45 @@ docker run -d --network=reddit --env COMMENT_SERVICE_HOST=comment5 --env POST_SE
 - подключил к приложению volume и убедился что данные сохраняются после перезапуска контейнера
 - собрал образ для ui на основе Alpine Linux и немного оптимизировал его.
 
+дз № 14
+- создана ветка docker-4
+- Разобрался с работой сети в Docker(none, host, bridge).
+если  запускаем более одного раза docker run --network host -d nginx
+docker выдает только один контейнер, который был запущен первым. все последующие запуски завершаются ошибкой: Address already in use.
+docker run --network host -d nginx 
+ee0e4cb0d5e8cb4518f3d9d22c62c0f54028249ca08a5ab8026957638657ea98
+
+docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+ee0e4cb0d5e8        nginx               "nginx -g 'daemon of…"   3 seconds ago       Up 2 seconds                            epic_benz
+aea5413c247e        nginx               "nginx -g 'daemon of…"   2 minutes ago       Up 2 minutes                            kind_golick
+
+docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+aea5413c247e        nginx               "nginx -g 'daemon of…"   2 minutes ago       Up 2 minutes                            kind_golick
+
+контейнер aea5413c247e уже был запущен
+
+docker logs ee0e4cb0d5e8
+2019/12/07 20:51:14 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2019/12/07 20:51:14 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2019/12/07 20:51:14 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2019/12/07 20:51:14 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2019/12/07 20:51:14 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2019/12/07 20:51:14 [emerg] 1#1: still could not bind()
+nginx: [emerg] still could not bind()
+
+- создали bridge-сеть reddit, запустили наш проект reddit с использованием bridge-сети reddit
+- запустили наш проект reddit в 2-х bridge сетях back_net,front_net, чтобы сервис ui не имел доступа к базе данных
+- установили docker-compose
+- собрали образы приложения reddit с помощью docker-compose и запустили
+- изменили docker-compose под кейс с множеством сетей
+- параметризировали с помощью переменных окружений(значения переменных находятся в файле .env): порт публикации сервиса ui, версии сервисов
+
+базовое имя проекта = имя папки, где расположен файл docker-compose.yml
+задать другое базовое имя проекта: docker-compose --project-name microservice_arhc_1  up -d
