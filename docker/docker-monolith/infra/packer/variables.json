@@ -1,0 +1,6 @@
+{
+        "project_id":"docker-258915",
+        "image_family": "reddit-full",
+        "machine_type": "f1-micro"
+}
+
