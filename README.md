@@ -111,3 +111,37 @@ https://hub.docker.com/repository/docker/ourman/post
 https://hub.docker.com/repository/docker/ourman/comment
 https://hub.docker.com/repository/docker/ourman/ui
 
+дз № 17
+
+- создана ветка moniyoting-2
+- вынесли мониторинг в отдельный файл docker-composemonitoring.yml
+- добавили сервис cadvisor для наблюдения за состоянием docker контейнеров в dockercompose-monitoring.yml
+- добавим информацию о новом сервисе в конфигурацию prometheus, чтобы он начал собирать метрики
+- пересобрали образ prometheus
+- проверили, что метрики контейнеров собираются prometheus
+- добавили сервис grafana в docker-compose-monitoring.yml
+- запустили grafana и добавили источник данных 
+- загрузили дашборд с официального сайта
+- загрузили скачанный скачанный дашборд в grafana
+- добавили информацию о post сервисе в конфигурацию prometheus, чтобы он начал собирать метрики после чего пересоберем образ Prometheus 
+- построили графики собираемых метрик приложения(изменения счетчика HTTP-запросов по времени; запросов, которые возвращают код ошибки;
+- добавили график на дашборд 95 процентиля времени ответа на запрос
+- создали дашборд Business_Logic_Monitoring и построили график функции rate(post_count[1h] и rate(comment_count[1h]))
+- cобрали образ alertmanager
+- добавили alertmanager в компоуз файл мониторинга
+- cоздадили файл alerts.yml с определением условия при которых должен срабатывать алерт(алерт будет срабатывать в ситуации, когда одна из наблюдаемых систем
+(endpoint) недоступна для сбора метрик)
+- добавили копирование alerts.yml в Dockerfile 
+- добавили информацию о правилах в конфиг Prometheus
+- пересобрали образ Prometheus
+- пересоздали docker инфраструктуру мониторинга
+- проверили создание алерта после остановки сервисов
+
+образы:
+https://hub.docker.com/repository/docker/ourman/alertmanager
+https://hub.docker.com/repository/docker/ourman/prometheus
+https://hub.docker.com/repository/docker/ourman/post
+https://hub.docker.com/repository/docker/ourman/comment
+https://hub.docker.com/repository/docker/ourman/ui
+
+
