@@ -1,0 +1,11 @@
+global:
+  slack_api_url: 'https://app.slack.com/client/T6HR0TUP3/CNENPES73/app_profile/A0F81FP4N'
+
+route:
+  receiver: 'slack-notifications'
+
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#vyacheslav_mishukov'
+
