@@ -83,3 +83,31 @@ nginx: [emerg] still could not bind()
 - определили новые этапы stage и production(запуск обоих в ручном режиме) 
 - добавили в pipeline условие, которое не разрешае  выкатить на staging и production код, не помеченный тэгом
 - добавили создание динамического окружения для каждой ветки в репозитории, кроме ветки master
+
+
+дз № 16
+
+- создана ветка monitoring-1
+- cоздали правило фаервола для Prometheus и Puma
+- создали docker-хост в GCE для разворачивания сервисов и мониторинга
+- запустили систему мониторинга Prometheus внутри docker-контейнера(воспользовались готовым образом из docker hub)
+- определим простой конфигурационный файл prometheus.yml для сбора метрик с наших микросервисов
+- собрали на основе готового образа с docker hub свой docker-образ с конфигурацией для мониторинга наших микросервисов
+- собрали образы при помощи скриптов docker_build.sh для каждого сервиса
+- добавили в docker-compose.yml сервис prometheus, добавили сети  и удалили build(мы уже собрали образы в предыдущем шаге) 
+- подняли сервисы docker-compose up -d 
+- остановили сервис post и проверили, как изменится статус ui сервиса,который зависим от post
+- восстановили post и проверили что статус ui восстановился в нормальное состояние
+- добавили в docker-compose.yml сервис node-exporter, добавили для него определение сетей
+- добавили в prometheus.yml job для node-exporter
+- собрали новый образ для Prometheus
+- перезапустили сервисы docker-compose down, docker-compose up -d 
+- В Prometheus появился endpoint (node-exporter)
+- с помощью yes > /dev/null на docker хосте увидили как меняется нагрузка на cpu
+
+образы: 
+https://hub.docker.com/repository/docker/ourman/prometheus
+https://hub.docker.com/repository/docker/ourman/post
+https://hub.docker.com/repository/docker/ourman/comment
+https://hub.docker.com/repository/docker/ourman/ui
+
