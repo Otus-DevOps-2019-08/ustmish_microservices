@@ -5,7 +5,9 @@ services:
     ports:
       - "24224:24224"
       - "24224:24224/udp"
-  
+    networks:
+      - front_net
+      - back_net 
   elasticsearch:
     image: elasticsearch:7.4.0
     container_name: elasticsearch
